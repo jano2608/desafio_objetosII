@@ -33,26 +33,27 @@ class MyPet
       puts '¡Uy!  ' + @name + ' tuvo un accidente...'
     end
 
-    if hungry?
+    if @satisfied <= 3
       if @sleep
         @sleep = false
         puts '¡Se despierta de repente!'
       end
-      puts 'El estomago de ' + @name + 'retumba...'
+      puts 'El estomago de ' + @name + ' retumba...'
     end
 
-    if needToGo?
+    if @fullIntestine >= 7
       if @sleep
         @sleep = false
         puts 'Se despierta de repente!'
       end
       puts @name + ' hace la danza del baño...'
     end
+    puts "Alimentación: #{@satisfied} \nDigestión: #{@fullIntestine}"
   end
 
   def feed
     puts "#{@name} come felizmente"
-    @satisfied = @satisfied + 2
+    @satisfied = @satisfied + 1
     timeLapse
   end
 
@@ -66,26 +67,31 @@ end
 def init
   puts 'Mi mascota virtual'
   puts 'Asigna un nombre a tu mascota virtual'
-  pet = MyPet.new(gets.chomp.to_s)
+  pet_name = (gets.chomp.to_s)
+  while pet_name.size < 3
+    puts 'Asigna un nombre válido a tu mascota virtual (3 caracteres o más)'
+    pet_name = (gets.chomp.to_s)
+  end
+  pet = MyPet.new(pet_name)
   return pet
   endline
 end
 def menu
-  puts 'Mi mascota virtual:'
-  puts '1) Alimentar'
-  puts '2) Hacerlo dormir'
-  puts '3) Ir a caminar'
+  endline
+  puts 'Mi mascota virtual: 1) Alimentar 2) Hacerlo dormir 3) Ir a caminar'
+  endline
 end
 def endline
   puts '--------------------------------------------------------'
 end
 def option
-  puts 'ingresa una opción'
+  print 'ingresa una opción: '
   o = gets.chomp.to_i
   while o > 3 || o < 1
     puts 'Ingresa una opción válida'
     o = gets.chomp.to_i
   end
+  endline
   return o
 end
 
